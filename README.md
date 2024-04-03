@@ -35,3 +35,6 @@ The boundary conditions then come from the price at expiry. If $j$ opportunities
 | 40 | 100 | 0.5 | 0.035 | 3 | 66.93 |
 
 which are pretty close to the true answers.
+
+As the Bernoulli behaviour causes the price to have to choose to go up and down at every time step, we should expect that it doesn't do well on an "at-the-money" case where the strike price is equal to the current price. Indeed, it oscillates, as we can see in the following figure:
+![Graph showing Bernoulli approximation to Black-Scholes with increasing iterations](output/at_the_money.png)
