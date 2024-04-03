@@ -19,13 +19,9 @@ We break up the interval $[0, t_0]$ into $[0, t_0/n, 2t_0/n, \dots, (n-1)t_0/n, 
 This is particularly useful for the American put (for example) where there is no formula available.
 
 We implement this algorithm by taking
-$$
-A_{i,j} = \left(pA_{i+1, j+1} + (1-p)A_{i+1, j}\right)e^{-\rho t_0 / n}
-$$
+$$A_{i,j} = \left(pA_{i+1, j+1} + (1-p)A_{i+1, j}\right)e^{-\rho t_0 / n}$$
 for $j=0, \dots, i$ and $i=n-1, \dots, 0$, with boundary conditions
-$$
-A_{n, j} = \left(S_0 e^{(2j-n)g} - c \right)^+
-$$
+$$A_{n, j} = \left(S_0 e^{(2j-n)g} - c \right)^+$$
 for $j=0, \dots, n$. This algorithm has complexity $O(n^2)$. The idea is that $A_{i,j}$ represents the price at time increment $i$ given that we've taken $j$ opportunities to raise the price (so any opportunities not taken, the price will go down). The time cost of money is incorporated into the exponential factor in the first equation.
 
 The boundary conditions then come from the price at expiry. If $j$ opportunities have been executed to raise the price, then $n-j$ times it has gone down, so the total difference in the logarithm of the price is $(2j -n)g$. Clearly, a call option only has a positive value if the strike is less than the expiry price, in which case it is simply the difference in prices.
