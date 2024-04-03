@@ -38,3 +38,8 @@ which are pretty close to the true answers.
 
 As the Bernoulli behaviour causes the price to have to choose to go up and down at every time step, we should expect that it doesn't do well on an "at-the-money" case where the strike price is equal to the current price. Indeed, it oscillates, as we can see in the following figure:
 ![Graph showing Bernoulli approximation to Black-Scholes with increasing iterations](output/at_the_money.png)
+
+## 3. American Put
+Now let's consider American options. As they can be exercised at any time, we can modify our Bernoulli approximation:
+$$A_{i,j} = \max\left[\left(S_0 e^{(2j-i)g} - c \right), \left(pA_{i+1, j+1} + (1-p)A_{i+1, j}\right)e^{-\rho t_0 / n}\right]$$
+where the boundary conditions remain the same. This is because, at each time step, we can either choose to exercise the option (first expression), or continue the process - whichever is higher in value.

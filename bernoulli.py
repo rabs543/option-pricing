@@ -8,6 +8,7 @@ def bernoulli_price(
     risk_free_rate: float,
     expiry_time: float,
     iterations: int,
+    american: bool = False,
 ) -> float:
 
     n = iterations  # number of iterations
@@ -19,7 +20,16 @@ def bernoulli_price(
 
     dp = {
         n: {
-            j: max(0, initial_price * exp((2 * j - n) * g) - strike_price)
+            j: max(
+                0,
+                price_if_exercised(
+                    time=n,
+                    increments_up=j,
+                    initial_price=initial_price,
+                    g=g,
+                    strike_price=strike_price,
+                ),
+            )
             for j in range(n + 1)
         }
     }
@@ -29,8 +39,23 @@ def bernoulli_price(
             dp[i][j] = (p * dp[i + 1][j + 1] + (1 - p) * dp[i + 1][j]) * exp(
                 -risk_free_rate * expiry_time / n
             )
+            if american:
+                # Calculate current price to sell
+                sell_now = price_if_exercised(
+                    time=i,
+                    increments_up=j,
+                    initial_price=initial_price,
+                    g=g,
+                    strike_price=strike_price,
+                )
+                if sell_now > dp[i][j]:
+                    dp[i][j] = sell_now
 
     return dp[0][0]
+
+
+def price_if_exercised(time, increments_up, initial_price, g, strike_price):
+    return initial_price * exp((2 * increments_up - time) * g) - strike_price
 
 
 def mean_var_to_bernoulli(mean, variance):
