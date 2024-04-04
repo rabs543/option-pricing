@@ -83,3 +83,4 @@ $$(2p - 1)g = \Mu = \frac{\mu t_0}{n}, \space \frac{4g^2p(1-p)}{k} = \Sigma^2 = 
 for $g$ and $p$. The solution is
 $$g=\sqrt{\Mu^2 + k\Sigma^2}$$
 $$p =\frac{\Mu + g}{2g}$$
+We implement this algorithm in `binomial.py`.

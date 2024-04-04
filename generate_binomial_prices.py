@@ -8,7 +8,7 @@ parameters = {
     "volatility": [0.5],
     "risk_free_rate": [0.035],
     "expiry_time": [2, 3],
-    "k": [2]
+    "k": [10]
 }
 
 # For rendering in GitHub
